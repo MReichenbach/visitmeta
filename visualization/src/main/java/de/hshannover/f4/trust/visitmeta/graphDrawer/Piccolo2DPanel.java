@@ -114,8 +114,8 @@ public class Piccolo2DPanel implements GraphPanel, Searchable {
 
 	private double mAreaOffsetX = 0.0;
 	private double mAreaOffsetY = 0.0;
-	private double mAreaWidth = 650.0;
-	private double mAreaHeight = 650.0;
+	private double mAreaWidth = 1000.0;
+	private double mAreaHeight = 1000.0;
 	public double mGlowWidth = 80.0;
 	public double mGlowHeight = 40.0;
 	private int mFontSize = 20;
@@ -981,7 +981,7 @@ public class Piccolo2DPanel implements GraphPanel, Searchable {
 		// [MR] XXX BAD FIX, because [Exception in thread "Thread-8" java.lang.NullPointerException]
 		boolean containsSearchTerm = false;
 		if (mSearchAndFilterStrategy != null) {
-			containsSearchTerm = mSearchAndFilterStrategy.containsSearchTerm(metadata, mSearchTerm);
+			containsSearchTerm = mSearchAndFilterStrategy.containsSearchTerm(metadata, m, mSearchTerm);
 		}
 
 		String publisher = extractPublisherId(metadata);
@@ -1200,6 +1200,18 @@ public class Piccolo2DPanel implements GraphPanel, Searchable {
 
 		repaintNodes(NodeType.IDENTIFIER);
 		repaintNodes(NodeType.METADATA);
+	}
+
+	public void showOnlyNodes(Propable propable) {
+		this.mHideSearchMismatches = true;
+
+		selectNode(propable);
+	}
+
+	public void showAllNodes() {
+		this.mHideSearchMismatches = false;
+
+		unselectNode();
 	}
 
 }

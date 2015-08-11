@@ -40,6 +40,7 @@ package de.hshannover.f4.trust.visitmeta.gui.search;
 
 import javax.swing.JPanel;
 
+import de.hshannover.f4.trust.visitmeta.datawrapper.NodeMetadata;
 import de.hshannover.f4.trust.visitmeta.interfaces.Identifier;
 import de.hshannover.f4.trust.visitmeta.interfaces.Metadata;
 
@@ -84,11 +85,12 @@ public interface SearchAndFilterStrategy {
 	 *
 	 * @param metadata
 	 *            a {@link Metadata} node
+	 * @param nodeMetadata
 	 * @param searchTerm
 	 *            a {@link String} that defines a search term; the syntax of the
 	 *            search term depends on the implementation of this interface
 	 * @return true, if the search term matches the given {@link Metadata} node
 	 */
-	public boolean containsSearchTerm(Metadata metadata, String searchTerm);
+	public boolean containsSearchTerm(Metadata metadata, NodeMetadata nodeMetadata, String searchTerm);
 
 }

@@ -163,12 +163,12 @@ public class NodeInformationXMLBreakdown extends NodeInformationStrategy {
 				}
 			}
 		} else {
-			if (level > 0) {
-				childTreeNode = new DefaultMutableTreeNode(node.getNodeValue());
-				childTreeNode.setAllowsChildren(false);
-				handleAttributes(node, childTreeNode);
-				treeNode.add(childTreeNode);
-			}
+			// if (level > 0) {
+			// childTreeNode = new DefaultMutableTreeNode(node.getNodeValue());
+			// childTreeNode.setAllowsChildren(true);
+			// handleAttributes(node, childTreeNode);
+			// treeNode.add(childTreeNode);
+			// }
 		}
 	}
 

@@ -52,6 +52,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.text.DefaultFormatter;
 
+import de.hshannover.f4.trust.visitmeta.datawrapper.NodeMetadata;
 import de.hshannover.f4.trust.visitmeta.interfaces.Identifier;
 import de.hshannover.f4.trust.visitmeta.interfaces.Metadata;
 import de.hshannover.f4.trust.visitmeta.interfaces.Propable;
@@ -289,8 +290,8 @@ public class SimpleSearchAndNoFilter implements SearchAndFilterStrategy {
 	}
 
 	@Override
-	public boolean containsSearchTerm(Metadata metadata, String searchTerm) {
-		return containsSearchTerm((Propable) metadata, searchTerm);
+	public boolean containsSearchTerm(Metadata metadata, NodeMetadata nodeMetadata, String searchTerm) {
+		return containsSearchTerm(metadata, searchTerm);
 	}
 
 }

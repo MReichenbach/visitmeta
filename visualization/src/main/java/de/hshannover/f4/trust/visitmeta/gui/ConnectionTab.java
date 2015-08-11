@@ -164,7 +164,7 @@ public class ConnectionTab extends JPanel {
 		historyNavigationStrategyPanel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
 		mPanelXmlTree = new PanelXmlTree();
-		mPanelXmlTree.setPreferredSize(new Dimension(800, 200));
+		mPanelXmlTree.setPreferredSize(new Dimension(800, 600));
 		mPanelXmlTree.setAlignmentX(Component.CENTER_ALIGNMENT);
 
 		mUpperPanel.add(mMotionInformationPane);
@@ -269,6 +269,7 @@ public class ConnectionTab extends JPanel {
 	public void showPropertiesOfNode(final Propable propable) {
 		mPanelXmlTree.fill(propable);
 		mPanelXmlTree.repaint();
+		mPanelXmlTree.expandAllNodes();
 	}
 
 	/**

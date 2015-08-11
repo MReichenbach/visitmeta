@@ -43,11 +43,14 @@ import java.util.ArrayList;
 
 import org.apache.log4j.Logger;
 
+import de.hshannover.f4.trust.ifmapj.exception.UnmarshalException;
 import de.hshannover.f4.trust.visitmeta.datawrapper.NodeIdentifier;
 import de.hshannover.f4.trust.visitmeta.datawrapper.NodeMetadata;
 import de.hshannover.f4.trust.visitmeta.datawrapper.Position;
 import de.hshannover.f4.trust.visitmeta.graphDrawer.Piccolo2DPanel;
 import de.hshannover.f4.trust.visitmeta.gui.GraphConnection;
+import de.hshannover.f4.trust.visitmeta.gui.search.PolicyRevMetadataSearch;
+import de.hshannover.f4.trust.visitmeta.gui.search.SimpleSearchAndNoFilter;
 import edu.umd.cs.piccolo.PNode;
 import edu.umd.cs.piccolo.activities.PActivity;
 import edu.umd.cs.piccolo.event.PDragEventHandler;
@@ -143,7 +146,21 @@ public class NodeEventHandler extends PDragEventHandler {
 					mConnection.showProperty(((NodeIdentifier) vNode).getIdentifier());
 				} else if (vNode instanceof NodeMetadata) {
 					mConnection.showProperty(((NodeMetadata) vNode).getMetadata());
+					if (PolicyRevMetadataSearch.POLICY_FEATURE_EL_NAME.equals(((NodeMetadata) vNode).getMetadata()
+							.getTypeName())) {
+						PolicyRevMetadataSearch policySearch = new PolicyRevMetadataSearch(mPanel);
+						try {
+							policySearch.setPickedNode(((NodeMetadata) vNode).getMetadata());
+						} catch (UnmarshalException ee) {
+							LOGGER.error(ee.toString());
+						}
+						mPanel.setSearchAndFilterStrategy(policySearch);
+						mPanel.setHideSearchMismatches(true);
+					}
 				}
+			} else {
+				mPanel.setSearchAndFilterStrategy(new SimpleSearchAndNoFilter(mPanel));
+				mPanel.setHideSearchMismatches(false);
 			}
 		}
 	}
