@@ -42,3 +42,6 @@ localMAPServer:
       startIdentifier: freeradius-pdp
       #  send this subscription when the data service is started
       useSubscriptionAsStartup: true
+    policies:
+      startIdentifier: irondetect-policies
+      identifierType: device
