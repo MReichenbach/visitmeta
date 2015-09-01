@@ -68,7 +68,8 @@ visualization:
     # ORTHOGONAL_LINE
     # CURVED_LINE
     # EXAMPLE (shows how different types of identifier/metadata can be rendered differently)
-    style: STRAIGHT_LINE
+    # POLICY (same as STRAIGHT_LINE except policy action and policy-feature metadata reference edges are STRAIGHT_DASHED_LINE)
+    style: POLICY
   history:
     navigation:
       # Sets the control mechanism for history navigation; possible values are:
