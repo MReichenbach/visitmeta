@@ -49,8 +49,7 @@ public class Piccolo2dEdgeRendererFactory {
 	/**
 	 * Creates a new {@link Piccolo2dEdgeRenderer}.
 	 *
-	 * @param type
-	 *            type of the {@link Piccolo2dEdgeRenderer}
+	 * @param type type of the {@link Piccolo2dEdgeRenderer}
 	 * @return a new {@link Piccolo2dEdgeRenderer}
 	 */
 	public static Piccolo2dEdgeRenderer create(Piccolo2dEdgeRendererType type) {
@@ -65,9 +64,10 @@ public class Piccolo2dEdgeRendererFactory {
 				return new CurvedLinePiccolo2dEdgeRenderer();
 			case EXAMPLE:
 				return new ExamplePiccolo2dEdgeRenderer();
+			case POLICY:
+				return new PolicyMetadataReferenceEdgeRenderer();
 			default:
-				throw new IllegalArgumentException("No Piccolo2dRenderer found for type '"
-						+ type + "'");
+				throw new IllegalArgumentException("No Piccolo2dRenderer found for type '" + type + "'");
 		}
 	}
 

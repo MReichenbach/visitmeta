@@ -61,7 +61,7 @@ public class SelectionNodePainter implements NodePainter {
 	private static final Properties mConfig = Main.getConfig();
 	private GraphPanel mPanel;
 
-	private Paint mColorSelectedNode = null;
+	protected Paint mColorSelectedNode = null;
 
 	public SelectionNodePainter(GraphPanel panel) {
 		mPanel = panel;
@@ -74,7 +74,7 @@ public class SelectionNodePainter implements NodePainter {
 
 	@Override
 	public void paintMetadataNode(Metadata metadata, GraphicWrapper graphic) {
-		Propable selectedNode = mPanel.getSelectedNode();
+		GraphicWrapper selectedNode = mPanel.getSelectedNode();
 		boolean isSelected = isSelected(selectedNode, metadata);
 		if (isSelected) {
 			graphic.setPaint(mColorSelectedNode);
@@ -84,18 +84,18 @@ public class SelectionNodePainter implements NodePainter {
 
 	@Override
 	public void paintIdentifierNode(Identifier identifier, GraphicWrapper graphic) {
-		Propable selectedNode = mPanel.getSelectedNode();
+		GraphicWrapper selectedNode = mPanel.getSelectedNode();
 		boolean isSelected = isSelected(selectedNode, identifier);
 		if (isSelected) {
 			graphic.setPaint(mColorSelectedNode);
 		}
 	}
 
-	private boolean isSelected(Propable selectedNode, Propable toTest) {
+	private boolean isSelected(GraphicWrapper selectedNode, Propable toTest) {
 		if (selectedNode == null) {
 			return false;
 		} else {
-			if (selectedNode == toTest) {
+			if (selectedNode.getData() == toTest) {
 				return true;
 			} else {
 				return false;

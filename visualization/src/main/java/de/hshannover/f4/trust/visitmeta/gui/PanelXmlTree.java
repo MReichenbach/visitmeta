@@ -92,4 +92,14 @@ public class PanelXmlTree extends JScrollPane {
 		mTree.setModel(new DefaultTreeModel(vRoot, true));
 		repaint();
 	}
+
+	public void expandAllNodes() {
+		int j = mTree.getRowCount();
+		int i = 0;
+		while (i < j) {
+			mTree.expandRow(i);
+			i++;
+			j = mTree.getRowCount();
+		}
+	}
 }

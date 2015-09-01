@@ -126,6 +126,7 @@ public class MainWindow extends JFrame {
 	private static List<SupportedLaF> supportedLaFs = new ArrayList<SupportedLaF>();
 	private ImageIcon[] mCancelIcon = null;
 	private MotionControllerHandler mMotionControllerHandler = null;
+	private static MainWindow mThis;
 
 	/**
 	 *
@@ -138,6 +139,12 @@ public class MainWindow extends JFrame {
 		mMotionControllerHandler = motionControllerHandler;
 
 		init();
+
+		mThis = this;
+	}
+
+	public static MainWindow getMainWindow() {
+		return mThis;
 	}
 
 	/**

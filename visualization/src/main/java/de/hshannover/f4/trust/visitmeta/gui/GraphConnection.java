@@ -61,6 +61,7 @@ import de.hshannover.f4.trust.visitmeta.graphCalculator.FacadeLogic;
 import de.hshannover.f4.trust.visitmeta.graphCalculator.LayoutType;
 import de.hshannover.f4.trust.visitmeta.graphDrawer.GraphPanel;
 import de.hshannover.f4.trust.visitmeta.graphDrawer.GraphPanelFactory;
+import de.hshannover.f4.trust.visitmeta.graphDrawer.GraphicWrapper;
 import de.hshannover.f4.trust.visitmeta.interfaces.Propable;
 
 public class GraphConnection implements Observer {
@@ -232,7 +233,7 @@ public class GraphConnection implements Observer {
 	 *
 	 * @param pNode
 	 */
-	public synchronized void removeHighlight(Position pNode) {
+	public void removeHighlight(Position pNode) {
 		LOGGER.trace("Method removeHighlight("
 				+ pNode + ") called.");
 		mGraphPanel.clearHighlight(pNode);
@@ -440,19 +441,18 @@ public class GraphConnection implements Observer {
 	}
 
 	/**
-	 * Shows the properties of the given {@link Propable} object, sets is as
+	 * Shows the properties of the given {@link GraphicWrapper} object, sets is as
 	 * selected in the {@link GraphPanel} instance and stores whether it was
 	 * marked as picked or not.
 	 *
-	 * @param propable
-	 *            the {@link Propable} object to show
+	 * @param pickedNode the {@link GraphicWrapper} object to show
 	 */
-	public void pickAndShowProperties(Propable propable) {
-		LOGGER.trace("Method pickAndShowProperties("
-				+ propable + ") called.");
+	public void pickAndShowProperties(GraphicWrapper pickedNode) {
+		LOGGER.trace("Method pickAndShowProperties(" + pickedNode + ") called.");
 		mIsPropablePicked = true;
-		mParentTab.showPropertiesOfNode(propable);
-		mGraphPanel.selectNode(propable);
+		mParentTab.showPropertiesOfNode((Propable) pickedNode.getData());
+		mParentTab.showExtendetNodeInformation(pickedNode);
+		mGraphPanel.selectNode(pickedNode);
 	}
 
 	/**
@@ -476,6 +476,7 @@ public class GraphConnection implements Observer {
 		LOGGER.trace("Method clearProperties() called.");
 		mIsPropablePicked = false;
 		mParentTab.showPropertiesOfNode(null);
+		mParentTab.showExtendetNodeInformation(null);
 		mGraphPanel.unselectNode();
 	}
 

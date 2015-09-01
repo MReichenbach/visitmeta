@@ -42,6 +42,8 @@ import java.util.List;
 
 import javax.swing.JComponent;
 
+import org.piccolo2d.nodes.PPath;
+
 import de.hshannover.f4.trust.visitmeta.datawrapper.ExpandedLink;
 import de.hshannover.f4.trust.visitmeta.datawrapper.NodeIdentifier;
 import de.hshannover.f4.trust.visitmeta.datawrapper.NodeMetadata;
@@ -49,7 +51,6 @@ import de.hshannover.f4.trust.visitmeta.datawrapper.NodeType;
 import de.hshannover.f4.trust.visitmeta.datawrapper.Position;
 import de.hshannover.f4.trust.visitmeta.graphDrawer.edgepainter.EdgePainter;
 import de.hshannover.f4.trust.visitmeta.graphDrawer.nodepainter.NodePainter;
-import de.hshannover.f4.trust.visitmeta.interfaces.Propable;
 
 /**
  * A Panel that shows the graph.
@@ -89,6 +90,23 @@ public interface GraphPanel {
 	 *            the metadata.
 	 */
 	public void addMetadata(ExpandedLink link, NodeMetadata metadata);
+
+	/**
+	 * Add a new edge on pKey between pNodeFirst pNodeSecond.
+	 * 
+	 * @param pKey Has the new edge.
+	 * @param pNodeFirst The start point of the new edge.
+	 * @param pNodeSecond The end point of the new edge.
+	 */
+	public void addEdge(NodeMetadata pKey, Position pNodeFirst, Position pNodeSecond);
+
+	/**
+	 * Remove the edge from the panel.
+	 * 
+	 * @param pKey the Metadata to identify the edge
+	 * @param pEdge the edge object
+	 */
+	public void deleteEdge(Object pKey, PPath pEdge);
 
 	/**
 	 * Update a Identifier from the graph.
@@ -177,10 +195,9 @@ public interface GraphPanel {
 	/**
 	 * Mark a node as selected.
 	 *
-	 * @param propable
-	 *            the {@link Propable} object that was selected
+	 * @param selectedNode the {@link GraphicWrapper} object that was selected
 	 */
-	public void selectNode(Propable propable);
+	public void selectNode(GraphicWrapper selectedNode);
 
 	/**
 	 * Unselects the former selected node.
@@ -207,17 +224,17 @@ public interface GraphPanel {
 	 * Returns the node that was selected by the user (if any).
 	 *
 	 * @return
-	 * 		the {@link Propable} object representing the selected node.
+	 *         the {@link GraphicWrapper} object representing the selected node.
 	 */
-	public Propable getSelectedNode();
+	public GraphicWrapper getSelectedNode();
 
 	/**
 	 * Can be called when another components detects that the mouse entered a given node.
 	 *
 	 * @param node
-	 *            the {@link Propable} object that the mouse entered.
+	 *            the {@link GraphicWrapper} object that the mouse entered.
 	 */
-	public void mouseEntered(Propable node);
+	public void mouseEntered(GraphicWrapper node);
 
 	/**
 	 * Can be called when another component detects that the mouse no longer is inside/over any node.
@@ -228,7 +245,7 @@ public interface GraphPanel {
 	 * Returns the node that the user has indirectly selected by moving the mouse over it, but not selecting it.
 	 *
 	 * @return
-	 * 		the {@link Propable} object representing the hovered-over node.
+	 *         the {@link GraphicWrapper} object representing the hovered-over node.
 	 */
-	public Propable getMouseOverNode();
+	public GraphicWrapper getMouseOverNode();
 }

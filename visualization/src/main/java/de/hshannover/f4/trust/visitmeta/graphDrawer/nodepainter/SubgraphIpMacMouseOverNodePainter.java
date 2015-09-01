@@ -68,7 +68,7 @@ public class SubgraphIpMacMouseOverNodePainter extends MouseOverNodePainter {
 
 	@Override
 	public void paintMetadataNode(Metadata metadata, GraphicWrapper graphic) {
-		Propable mouseOverNode = mGraphPanel.getMouseOverNode();
+		GraphicWrapper mouseOverNode = mGraphPanel.getMouseOverNode();
 		if (mouseOverNode != null) {
 			boolean isMouseOver = isMouseOver(mouseOverNode, metadata);
 			boolean isConnected = isConnected(mouseOverNode, metadata);
@@ -81,7 +81,7 @@ public class SubgraphIpMacMouseOverNodePainter extends MouseOverNodePainter {
 
 	@Override
 	public void paintIdentifierNode(Identifier identifier, GraphicWrapper graphic) {
-		Propable mouseOverNode = mGraphPanel.getMouseOverNode();
+		GraphicWrapper mouseOverNode = mGraphPanel.getMouseOverNode();
 		if (mouseOverNode != null) {
 			boolean isMouseOver = isMouseOver(mouseOverNode, identifier);
 			boolean isConnected = isConnected(mouseOverNode, identifier);
@@ -92,16 +92,20 @@ public class SubgraphIpMacMouseOverNodePainter extends MouseOverNodePainter {
 		}
 	}
 
-	private boolean isConnected(Propable mouseOverNode, Propable toTest) {
-		String mouseOverTypeName = mouseOverNode.getTypeName();
-		String toTestTypeName = toTest.getTypeName();
+	private boolean isConnected(GraphicWrapper mouseOverNode, Propable toTest) {
+		Object mouseOverNodeData = mouseOverNode.getData();
 
-		if (mConnectedNodeTypeNames.contains(toTestTypeName)
-				&& mConnectedNodeTypeNames.contains(mouseOverTypeName)) {
-			return true;
-		} else {
-			return false;
+		if (mouseOverNodeData instanceof Propable) {
+			String mouseOverTypeName = ((Propable) mouseOverNodeData).getTypeName();
+			String toTestTypeName = toTest.getTypeName();
+
+			if (mConnectedNodeTypeNames.contains(toTestTypeName) && mConnectedNodeTypeNames.contains(mouseOverTypeName)) {
+				return true;
+			} else {
+				return false;
+			}
 		}
+		return false;
 	}
 
 }

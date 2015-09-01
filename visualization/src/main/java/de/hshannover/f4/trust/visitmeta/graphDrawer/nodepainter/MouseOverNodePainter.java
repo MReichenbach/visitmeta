@@ -75,7 +75,7 @@ public class MouseOverNodePainter implements NodePainter {
 
 	@Override
 	public void paintMetadataNode(Metadata metadata, GraphicWrapper graphic) {
-		Propable mouseOverNode = mGraphPanel.getMouseOverNode();
+		GraphicWrapper mouseOverNode = mGraphPanel.getMouseOverNode();
 		if (mouseOverNode != null) {
 			boolean isMouseOver = isMouseOver(mouseOverNode, metadata);
 			if (isMouseOver) {
@@ -86,7 +86,7 @@ public class MouseOverNodePainter implements NodePainter {
 
 	@Override
 	public void paintIdentifierNode(Identifier identifier, GraphicWrapper graphic) {
-		Propable mouseOverNode = mGraphPanel.getMouseOverNode();
+		GraphicWrapper mouseOverNode = mGraphPanel.getMouseOverNode();
 		if (mouseOverNode != null) {
 			boolean isMouseOver = isMouseOver(mouseOverNode, identifier);
 			if (isMouseOver) {
@@ -95,11 +95,13 @@ public class MouseOverNodePainter implements NodePainter {
 		}
 	}
 
-	protected boolean isMouseOver(Propable mouseOverNode, Propable toTest) {
-		if (mouseOverNode == null) {
+	protected boolean isMouseOver(GraphicWrapper mouseOverNode, Propable toTest) {
+		Object mouseOverNodeData = mouseOverNode.getData();
+
+		if (mouseOverNodeData == null) {
 			return false;
 		} else {
-			if (mouseOverNode == toTest) {
+			if (mouseOverNodeData == toTest) {
 				return true;
 			} else {
 				return false;

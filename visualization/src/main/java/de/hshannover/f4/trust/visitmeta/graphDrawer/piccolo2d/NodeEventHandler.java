@@ -48,14 +48,14 @@ import org.piccolo2d.event.PDragEventHandler;
 import org.piccolo2d.event.PInputEvent;
 import org.piccolo2d.extras.nodes.PComposite;
 import org.piccolo2d.nodes.PPath;
+import org.piccolo2d.nodes.PText;
 
-import de.hshannover.f4.trust.visitmeta.datawrapper.NodeIdentifier;
-import de.hshannover.f4.trust.visitmeta.datawrapper.NodeMetadata;
 import de.hshannover.f4.trust.visitmeta.datawrapper.Position;
+import de.hshannover.f4.trust.visitmeta.graphDrawer.GraphicWrapper;
+import de.hshannover.f4.trust.visitmeta.graphDrawer.Piccolo2DGraphicWrapperFactory;
 import de.hshannover.f4.trust.visitmeta.graphDrawer.Piccolo2DPanel;
 import de.hshannover.f4.trust.visitmeta.gui.GraphConnection;
-import de.hshannover.f4.trust.visitmeta.interfaces.Identifier;
-import de.hshannover.f4.trust.visitmeta.interfaces.Metadata;
+import de.hshannover.f4.trust.visitmeta.interfaces.Propable;
 
 public class NodeEventHandler extends PDragEventHandler {
 
@@ -147,16 +147,12 @@ public class NodeEventHandler extends PDragEventHandler {
 		if (!mConnection.isPropablePicked()) {
 			PNode pickedNode = e.getPickedNode();
 			if (pickedNode instanceof PComposite) {
-				Object vNode = pickedNode.getAttribute("position");
-				if (vNode instanceof NodeIdentifier) {
-					Identifier identifier = ((NodeIdentifier) vNode).getIdentifier();
-					mConnection.showProperty(identifier);
-					mPanel.mouseEntered(identifier);
-				} else if (vNode instanceof NodeMetadata) {
-					Metadata metadata = ((NodeMetadata) vNode).getMetadata();
-					mConnection.showProperty(metadata);
-					mPanel.mouseEntered(metadata);
-				}
+				PPath vNode = (PPath) pickedNode.getChild(0);
+				PText vText = (PText) pickedNode.getChild(1);
+				GraphicWrapper g = Piccolo2DGraphicWrapperFactory.create(vNode, vText);
+
+				mConnection.showProperty((Propable) g.getData());
+				mPanel.mouseEntered(g);
 			}
 		}
 	}
@@ -170,10 +166,9 @@ public class NodeEventHandler extends PDragEventHandler {
 		if (!mConnection.isPropablePicked()) {
 			PNode pickedNode = e.getPickedNode();
 			if (pickedNode instanceof PComposite) {
+				mPanel.mouseExited();
 			}
 		}
-
-		mPanel.mouseExited();
 	}
 
 	@Override
@@ -185,12 +180,11 @@ public class NodeEventHandler extends PDragEventHandler {
 		if (e.getButton() == MOUSE_LEFT_BUTTON) {
 			PNode pickedNode = e.getPickedNode();
 			if (pickedNode instanceof PComposite) {
-				Position vNode = (Position) pickedNode.getAttribute("position");
-				if (vNode instanceof NodeIdentifier) {
-					mConnection.pickAndShowProperties(((NodeIdentifier) vNode).getIdentifier());
-				} else if (vNode instanceof NodeMetadata) {
-					mConnection.pickAndShowProperties(((NodeMetadata) vNode).getMetadata());
-				}
+				PPath vNode = (PPath) pickedNode.getChild(0);
+				PText vText = (PText) pickedNode.getChild(1);
+				GraphicWrapper g = Piccolo2DGraphicWrapperFactory.create(vNode, vText);
+
+				mConnection.pickAndShowProperties(g);
 			} else {
 				mConnection.clearProperties();
 			}
